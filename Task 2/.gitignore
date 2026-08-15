@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+data/app.db
+data/master.key
+data/encrypted_files/*
+data/download_*

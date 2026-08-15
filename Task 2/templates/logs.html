@@ -1,0 +1,3 @@
+<!doctype html>
+<html><head><title>Audit Logs</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><div class="wrap"><div class="top"><h1>Audit Logs</h1><a href="/dashboard">Dashboard</a></div><section class="card"><table><tr><th>Time</th><th>User</th><th>Action</th><th>File</th><th>Details</th></tr>{% for l in logs %}<tr><td>{{l.created_at}}</td><td>{{l.username}}</td><td>{{l.action}}</td><td>{{l.original_name or '-'}}</td><td>{{l.details}}</td></tr>{% endfor %}</table></section></div></body></html>

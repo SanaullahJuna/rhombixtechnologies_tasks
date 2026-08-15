@@ -1,0 +1,12 @@
+<!doctype html>
+<html><head><title>Dashboard</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><div class="wrap"><div class="top"><h1>Secure File Transfer</h1><span>Logged in as <b>{{ session.username }}</b> · <a href="/logout">Logout</a></span></div>
+{% with messages=get_flashed_messages() %}{% for m in messages %}<div class="msg">{{m}}</div>{% endfor %}{% endwith %}
+<div class="grid"><section class="card"><h2>Send Encrypted File</h2>
+<form action="/upload" method="post" enctype="multipart/form-data">
+<label>Recipient</label><select name="recipient_id" required><option value="">Select user</option>{% for u in users %}<option value="{{u.id}}">{{u.username}}</option>{% endfor %}</select>
+<label>File</label><input type="file" name="file" required><button>Encrypt & Send</button></form></section>
+<section class="card"><h2>Received Files</h2>{% if received %}<table><tr><th>File</th><th>From</th><th>Action</th></tr>{% for f in received %}<tr><td>{{f.original_name}}</td><td>{{f.sender}}</td><td><a href="/download/{{f.id}}">Download</a></td></tr>{% endfor %}</table>{% else %}<p>No received files.</p>{% endif %}</section></div>
+<section class="card"><h2>Sent Files</h2>{% if sent %}<table><tr><th>File</th><th>To</th><th>Action</th></tr>{% for f in sent %}<tr><td>{{f.original_name}}</td><td>{{f.recipient}}</td><td><a href="/download/{{f.id}}">Download</a></td></tr>{% endfor %}</table>{% else %}<p>No sent files.</p>{% endif %}</section>
+<section class="card"><h2>Recent Audit Logs</h2><p><a href="/admin/logs">View all my logs</a></p><table><tr><th>Time</th><th>Action</th><th>File</th><th>Details</th></tr>{% for l in logs %}<tr><td>{{l.created_at}}</td><td>{{l.action}}</td><td>{{l.original_name or '-'}}</td><td>{{l.details}}</td></tr>{% endfor %}</table></section>
+</div></body></html>
